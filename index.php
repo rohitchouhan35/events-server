@@ -1,9 +1,10 @@
 <?php 
 require_once './vendor/autoload.php';
 
-$clientID = '224762843069-.apps.googleusercontent.com';
-$clientSecret = 'GOCSPX-';
-$redirectUrl = 'http://localhost:3000/';
+$clientID = '224762843069-o6jpcp7unjcf4h519fjr8v6qk6b2jo1h.apps.googleusercontent.com';
+$clientSecret = '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';
+// $redirectUrl = 'http://localhost:3000/';
+$redirectUrl = 'https://eventsaroundyou.netlify.app/';
 
 // creating client request to google
 $client = new Google_Client();
