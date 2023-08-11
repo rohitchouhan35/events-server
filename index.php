@@ -19,6 +19,7 @@ if(isset($_GET['code'])) {
     
 }
 else {
-    echo "<a href='".$client->createAuthUrl()."'>Login with Goggle</a>";
+    // echo "<a href='".$client->createAuthUrl()."'>Login with Goggle</a>";
+    echo "<a href='".GOOGLE LOGIN URL."'>Login with Goggle</a>";
 }
 ?>

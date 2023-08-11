@@ -1,9 +1,9 @@
 <?php 
 
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "allevents";
+$host = $_ENV["MYSQL_HOST"];
+$username = $_ENV["MYSQL_USER"];
+$password = $_ENV["MYSQL_PASSWORD"];
+$dbname = $_ENV["MYSQL_DATABASE"];
 
 $conn = mysqli_connect($host, $username, $password, $dbname);
 
@@ -29,7 +29,7 @@ if (!$tableExists) {
         category VARCHAR(255),
         banner_image VARCHAR(10000)
     )";
-
+    mysqli_query($conn, $createTableQuery);
 }
 
 ?>
