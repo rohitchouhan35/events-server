@@ -1,8 +1,8 @@
 <?php 
 require_once './vendor/autoload.php';
 
-$clientID = '224762843069-o6jpcp7unjcf4h519fjr8v6qk6b2jo1h.apps.googleusercontent.com';
-$clientSecret = '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';
+$clientID = '-.apps.googleusercontent.com';
+$clientSecret = 'GOCSPX-=';
 // $redirectUrl = 'http://localhost:3000/';
 $redirectUrl = 'https://eventsaroundyou.netlify.app/';
 
@@ -22,6 +22,3 @@ else {
     echo "<a href='".$client->createAuthUrl()."'>Login with Goggle</a>";
 }
 ?>
-<body>
-    <h1>hii</h1>
-</body>

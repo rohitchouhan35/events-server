@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: GET');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
-include('services.php');
+include('../services/events.php');
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
