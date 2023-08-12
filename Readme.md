@@ -1,8 +1,8 @@
-make a folder named "allevents", open this in command prompt, run "git init"
-run "git clone https://github.com/rohitchouhan35/events-server.git" in the folder
+download the zip file and extract folder, the name of extracted folder will be "events-server-main"
 
-place this foler in "htdocs" in xampp or anywhere you want and modify the url in frontend here [click to see file (https://github.com/rohitchouhan35/events-client/blob/main/src/services/eventData.js)]
+place this foler in "htdocs" in xampp or anywhere you want and modify the "BASE_URL" here if needed [click to see file (https://github.com/rohitchouhan35/events-client/blob/main/src/services/eventData.js)]
+by default the url ise set to "const BASE_URL_LOCAL = "http://localhost/events-server-main";"
 
-I have xampp and allevents is in htdocs folder and url formed is 
+http://localhost/events-server-main/list-all-events.php   -> to get all events
 
-http://localhost/allevents/{file name}
+database is hosted with limit of 5Mb
