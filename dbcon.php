@@ -1,9 +1,9 @@
 <?php 
 
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "allevents";
+$host = "sql6.freemysqlhosting.net";
+$username = "sql6639278";
+$password = "GvNJ8wL1L9";
+$dbname = "sql6639278";
 
 $conn = mysqli_connect($host, $username, $password, $dbname);
 
@@ -27,7 +27,7 @@ if (!$tableExists) {
         location VARCHAR(255) NOT NULL,
         description VARCHAR(1000),
         category VARCHAR(255),
-        banner_image VARCHAR(10000)
+        banner_image VARCHAR(500)
     )";
     mysqli_query($conn, $createTableQuery);
 }
