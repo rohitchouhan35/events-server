@@ -1,16 +1,33 @@
 <?php
+error_reporting(0);
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+header('Access-Control-Allow-Methods: POST, OPTIONS, GET');
+header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
-require '../config/dbcon.php';
+require './dbcon.php';
 
-function error422($message) {
+$requestMethod = $_SERVER["REQUEST_METHOD"];
+
+if ($requestMethod == "POST" || $requestMethod == "OPTIONS") {
+    $inputData = json_decode(file_get_contents("php://input"), true);
+    if(empty($inputData)) {
+        $eventInput = saveEvent($_POST);
+    }
+    else {
+        $eventInput = saveEvent($inputData);
+    }
+    echo $eventInput;
+} 
+else {
     $data = [
-        'status' => '422',
-        'message' => $message,
+        'status' => '405',
+        'message' => $requestMethod . ' Method Not Allowed',
     ];
-    header("HTTP/1.0 422 Unprocessable");
-    echo json_encode($data);
-    exit();
+    header("HTTP/1.0 405 Method Not Allowed");
+    echo json_encode($data); 
 }
+
 
 function saveEvent($eventInput) {
 
