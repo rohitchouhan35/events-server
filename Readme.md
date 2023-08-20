@@ -15,7 +15,7 @@ This repository contains the backend server for the Events application. It provi
 
 ```
 ## Endpoints
-```
+
 
 ### Add Event (POST)
 
