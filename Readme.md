@@ -115,7 +115,7 @@ The database is hosted with a limit of 5MB.
 - The code assumes a specific project structure and requires included files for proper functioning.
 - Adjust URLs and paths as needed to match your server environment.
 
-Feel free to customize and extend the functionality to suit your requirements.
+Please contact on this email in case I've not explained installation clearly or missed something
 ```
 
 Copy and paste this content into a file named `README.md` in the root directory of your GitHub repository. This markdown format is compatible with GitHub and will render nicely when viewed on the repository page.
