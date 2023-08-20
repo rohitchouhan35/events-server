@@ -1,25 +1,20 @@
 <?php
 
-$currentDateStr = "20/08/2023";
-$eventDateStr = "25/08/2023";
+function isCurrentDateSmaller($userDate, $eventDate) {
+    $userInputDate = DateTime::createFromFormat('d/m/Y', $userDate);
+    $evenStartDate = DateTime::createFromFormat('d/m/Y', $eventDate);
 
-if (isCurrentDateSmaller($currentDateStr, $eventDateStr)) {
-    echo "Current date is smaller than event date.";
-} else {
-    echo "Current date is not smaller than event date.";
+    return $userInputDate && $evenStartDate && $userInputDate <= $evenStartDate;
 }
 
-
-function isCurrentDateSmaller($currentDateStr, $eventDateStr) {
-    $currentDate = DateTime::createFromFormat('d/m/Y', $currentDateStr);
-    $eventDate = DateTime::createFromFormat('d/m/Y', $eventDateStr);
-
-    if (!$currentDate || !$eventDate) {
-        // Invalid date format
-        return false;
+function filterByDate($date, $res) {
+    $filteredEvents = array();
+    foreach ($res as $event) {
+        if (isCurrentDateSmaller($date, $event['start_time'])) {
+            $filteredEvents[] = $event;
+        }
     }
-
-    return $currentDate < $eventDate;
+    return $filteredEvents;
 }
 
 ?>
