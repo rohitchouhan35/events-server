@@ -1,14 +1,14 @@
 <?php 
 
-// $host = "sql6.freemysqlhosting.net";
-// $username = "sql6639278";
-// $password = "GvNJ8wL1L9";
-// $dbname = "sql6639278";
+$host = "sql6.freemysqlhosting.net";
+$username = "sql6641071";
+$password = "8DqrTE2r79";
+$dbname = "sql6641071";
 
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "allevents";
+// $host = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "allevents";
 
 $conn = mysqli_connect($host, $username, $password, $dbname);
 
@@ -56,5 +56,4 @@ if (!$tableExists) {
     )";
     mysqli_query($conn, $createTableQuery);
 }
-
 ?>

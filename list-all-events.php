@@ -37,12 +37,12 @@ function getEventList($city, $category, $date) {
 
     $res = mysqli_fetch_all($query_run, MYSQLI_ASSOC);
 
-    if (empty($res)) onError(404, 'No events listed');
+    if (empty($res)) return onError(404, 'No events to show');
 
     if ($date) $res = filterByDate($date, $res);
+    else return onSuccess(200, 'Successfully fetched data', $res);
 
     if (empty($res) && $date) onError(404, 'No active or upcoming events on chosen date: ' . $date);
-    else if (!empty($res)) onSuccess(200, 'Successfully fetched data', $res);
-    else onError(404, 'No events listed');
+    else return onSuccess(200, 'Successfully fetched data', $res);
 }
 ?>
