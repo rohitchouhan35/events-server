@@ -14,6 +14,8 @@ This repository contains the backend server for the Events application. It provi
 3. Modify the `BASE_URL` in [eventData.js](https://github.com/rohitchouhan35/events-client/blob/main/src/services/eventData.js) if needed. The default value is `const BASE_URL_LOCAL = "http://localhost/events-server-main";`.
 
 ## Endpoints
+```
+
 
 ### Add Event (POST)
 
