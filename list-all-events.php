@@ -1,8 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+require_once 'header.php';
 
 require './dbcon.php';
 require './status/onError.php';
@@ -23,17 +20,16 @@ $date = isset($inputData['date']) ? $inputData['date'] : null;
 $eventList = getEventList($city, $category, $date);
 echo $eventList;
 
-// I'm taking the filter parameters in the post request
 function getEventList($city, $category, $date) {
     global $conn;
 
     $query = "SELECT * FROM events WHERE 1";
 
     if ($city) {
-        $query .= " AND location = '$city'";
+        $query .= " AND LOWER(location) = LOWER('$city')";
     }
     if ($category) {
-        $query .= " AND category = '$category'";
+        $query .= " AND LOWER(category) = LOWER('$category')";
     }
     
     $query_run = mysqli_query($conn, $query);
@@ -43,10 +39,9 @@ function getEventList($city, $category, $date) {
 
     if (empty($res)) onError(404, 'No events listed');
 
-    // this function is defined in './date-filter.php'
     if ($date) $res = filterByDate($date, $res);
 
-    if (empty($res) && $date) onError(404, 'No active or upcoming events on choosen date: ' . $date);
+    if (empty($res) && $date) onError(404, 'No active or upcoming events on chosen date: ' . $date);
     else if (!empty($res)) onSuccess(200, 'Successfully fetched data', $res);
     else onError(404, 'No events listed');
 }

@@ -1,91 +1,119 @@
-download the zip file and extract folder, the name of extracted folder will be "events-server-main"
+Certainly! Here's the content formatted as a README.md file that you can directly use in your GitHub repository:
 
-place this foler in "htdocs" in xampp or anywhere you want and modify the "BASE_URL" here if needed [click to see file (https://github.com/rohitchouhan35/events-client/blob/main/src/services/eventData.js)]
-by default the url ise set to "const BASE_URL_LOCAL = "http://localhost/events-server-main";"
+```markdown
+# Events Server
 
-http://localhost/events-server-main/list-all-events.php   -> to get all events
+This repository contains the backend server for the Events application. It provides endpoints to add events, retrieve event data, add users, and retrieve user data.
 
-database is hosted with limit of 5Mb
+## Getting Started
 
+1. Clone this repository to your local environment.
 
+2. Place the extracted folder named "events-server-main" in the "htdocs" directory of your XAMPP or any web server.
 
+3. Modify the `BASE_URL` in [eventData.js](https://github.com/rohitchouhan35/events-client/blob/main/src/services/eventData.js) if needed. The default value is `const BASE_URL_LOCAL = "http://localhost/events-server-main";`.
 
-**********sample for adding event: (POST request)**********
+## Endpoints
 
-    request: 
-            {
-                "event_name": "Diwali",
-                "start_time": "19/08/1999",
-                "end_time": "25/08/2001",
-                "location": "Vadodara",
-                "description": "Diwali celebration event",
-                "category": "Cultural",
-                "banner_image": "dummy"
-            }
+### Add Event (POST)
 
-    response:
-            {
-                "status": "201",
-                "message": "added successfully"
-            }
+**Request:**
+```json
+{
+    "event_name": "Diwali",
+    "start_time": "19/08/1999",
+    "end_time": "25/08/2001",
+    "location": "Vadodara",
+    "description": "Diwali celebration event",
+    "category": "Cultural",
+    "banner_image": "dummy"
+}
+```
 
+**Response:**
+```json
+{
+    "status": "201",
+    "message": "added successfully"
+}
+```
 
-**********sample for getting events: (POST request)**********
+### Get Events (POST)
 
-    request:
+**Request:**
+```json
+{
+    "city": "Vadodara",
+    "category": "Dance",
+    "date": "04/08/2023"
+}
+```
 
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Successfully fetched data",
+    "data": [
         {
-            "city": "Vadodara",
+            "id": "30",
+            "event_name": "Mega event",
+            "start_time": "17/08/2023",
+            "end_time": "25/08/2023",
+            "location": "Vadodara",
+            "description": "new event",
             "category": "Dance",
-            "date": "04/08/2023"
+            "banner_image": "https://www.shutterstock.com/image-vector/music-event-banner-design-template-600w-1551185741.jpg"
         }
+    ]
+}
+```
 
-    response:
+### Add User (POST)
 
+**Request:**
+```json
+{
+    "name": "Om",
+    "email": "om@gmail.com"
+}
+```
+
+**Response:**
+```json
+{
+    "status": "201",
+    "message": "User added successfully"
+}
+```
+
+### Get All Users (GET)
+
+**Response:**
+```json
+{
+    "status": "200",
+    "message": "Successfully fetched user data",
+    "data": [
         {
-            "status": 200,
-            "message": "Successfully fetched data",
-            "data": [
-                {
-                    "id": "30",
-                    "event_name": "Mega event ",
-                    "start_time": "17/08/2023",
-                    "end_time": "25/08/2023",
-                    "location": "Vadodara",
-                    "description": "new event",
-                    "category": "Dance",
-                    "banner_image": "https://www.shutterstock.com/image-vector/music-event-banner-design-template-600w-1551185741.jpg"
-                }
-            ]
-        }
-
-
-**********Sample for adding user: (POST request) **********
-
-    request:
-        {
+            "id": "1",
             "name": "Om",
             "email": "om@gmail.com"
         }
+    ]
+}
+```
 
-    response:
-        {
-            "status": "201",
-            "message": "User added successfully"
-        }
+## Database
 
+The database is hosted with a limit of 5MB.
 
-**********Sample for getting all users: (GET request)**********
+## Notes
 
-    response:
-        {
-            "status": "200",
-            "message": "Successfully fetched user data",
-            "data": [
-                {
-                    "id": "1",
-                    "name": "Om",
-                    "email": "om@gmail.com"
-                }
-            ]
-        }
+- The code assumes a specific project structure and requires included files for proper functioning.
+- Adjust URLs and paths as needed to match your server environment.
+
+Feel free to customize and extend the functionality to suit your requirements.
+```
+
+Copy and paste this content into a file named `README.md` in the root directory of your GitHub repository. This markdown format is compatible with GitHub and will render nicely when viewed on the repository page.

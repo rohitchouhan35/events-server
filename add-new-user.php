@@ -1,11 +1,10 @@
 <?php
 error_reporting(0);
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: POST, OPTIONS, GET');
-header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+require_once 'header.php';
 
 require './dbcon.php';
+require './status/onError.php';
+require './status/onSuccess.php';
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
@@ -18,17 +17,12 @@ if ($requestMethod == "POST" || $requestMethod == "OPTIONS") {
     }
     echo $userInput;
 } else {
-    $data = [
-        'status' => '405',
-        'message' => $requestMethod . ' Method Not Allowed',
-    ];
-    header("HTTP/1.0 405 Method Not Allowed");
-    echo json_encode($data);
+    onError(405, $requestMethod . ' Method Not Allowed');
 }
 
 function saveUser($userInput) {
-
     global $conn;
+
     $name = mysqli_real_escape_string($conn, $userInput['name']);
     $email = mysqli_real_escape_string($conn, $userInput['email']);
 
@@ -36,25 +30,15 @@ function saveUser($userInput) {
         !isset($userInput['name']) ||
         !isset($userInput['email'])
     ) {
-        exit();
+        onError(400, 'Invalid Input');
     } else {
         $query = "INSERT INTO users (name, email) VALUES ('$name', '$email')";
         $result = mysqli_query($conn, $query);
 
         if ($result) {
-            $data = [
-                'status' => '201',
-                'message' => 'User added successfully',
-            ];
-            header("HTTP/1.0 201 created");
-            return json_encode($data);
+            onSuccess(201, 'User added successfully');
         } else {
-            $data = [
-                'status' => '500',
-                'message' => 'Internal Server Error',
-            ];
-            header("HTTP/1.0 500 Internal Server Error");
-            return json_encode($data);
+            onError(500, 'Internal Server Error');
         }
     }
 }
