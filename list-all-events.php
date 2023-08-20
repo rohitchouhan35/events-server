@@ -17,15 +17,22 @@ if ($requestMethod == "POST") {
     $eventList = getEventList($city, $category, $date);
     echo $eventList;
 } else {
-    $data = [
-        'status' => '405',
-        'message' => $requestMethod . ' Method Not Allowed',
-    ];
-    header("HTTP/1.0 405 Method Not Allowed");
-    echo json_encode($data);
+    onError(405, $requestMethod . ' Method Not Allowed');
 }
 
-function getEventList($city, $category, $date) {
+function isCurrentDateSmaller($currentDateStr, $eventDateStr) {
+    $currentDate = DateTime::createFromFormat('d/m/Y', $currentDateStr);
+    $eventDate = DateTime::createFromFormat('d/m/Y', $eventDateStr);
+
+    if (!$currentDate || !$eventDate) {
+        return false;
+    }
+
+    return $currentDate < $eventDate;
+}
+
+function getEventList($city, $category, $date)
+{
     global $conn;
 
     $query = "SELECT * FROM events WHERE 1";
@@ -43,28 +50,46 @@ function getEventList($city, $category, $date) {
         $res = mysqli_fetch_all($query_run, MYSQLI_ASSOC);
 
         if (!empty($res)) {
-            $data = [
-                'status' => '200',
-                'message' => 'Successfully fetched data',
-                'data' => $res,
-            ];
-            header("HTTP/1.0 200 OK");
-            return json_encode($data);
+
+            if($date) {
+                $filteredEvents = array();
+                foreach ($res as $event) {
+                    if (isCurrentDateSmaller($date, $event['start_time'])) {
+                        $filteredEvents[] = $event;
+                    }
+                }
+                $res = $filteredEvents;
+            }
+
+            if (!empty($res)) {
+                onSuccess(200, 'Successfully fetched data', $res);
+            } else {
+                onError(404, 'No events listed');
+            }
         } else {
-            $data = [
-                'status' => '404',
-                'message' => 'No events listed',
-            ];
-            header("HTTP/1.0 404 Not Found");
-            return json_encode($data);
+            onError(404, 'No events listed');
         }
     } else {
-        $data = [
-            'status' => '500',
-            'message' => 'Internal Server Error',
-        ];
-        header("HTTP/1.0 500 Internal Server Error");
-        return json_encode($data);
+        onError(500, 'Internal Server Error');
     }
+}
+
+function onError($status, $message) {
+    $data = [
+        'status' => $status,
+        'message' => $message,
+    ];
+    header("HTTP/1.0 $status");
+    echo json_encode($data);
+}
+
+function onSuccess($status, $message, $data) {
+    $response = [
+        'status' => $status,
+        'message' => $message,
+        'data' => $data,
+    ];
+    header("HTTP/1.0 $status");
+    echo json_encode($response);
 }
 ?>
