@@ -1,5 +1,3 @@
-Certainly! Here's the content formatted as a README.md file that you can directly use in your GitHub repository:
-
 ```markdown
 # Events Server
 
